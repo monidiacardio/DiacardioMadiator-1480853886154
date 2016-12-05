@@ -23,25 +23,25 @@ app.use(passport.initialize());
 // Protect DELETE endpoint so it can only be accessed by HelloTodo mobile samples
 app.delete('/api/Items/:id', passport.authenticate('mca-backend-strategy', {session: false}));
 ///////////////////////////////
-var http = require('http');
+//var http = require('http');
 
 //The url we want is: 'www.random.org/integers/?num=1&min=1&max=10&col=1&base=10&format=plain&rnd=new'
-var options = {
-  host: '169.50.146.98',
-  path: '/getFile'
-};
+//var options = {
+//  host: '169.50.146.98',
+//  path: '/getFile'
+//};
 
-callback = function(response) {
-  var str = '';
-}
+//callback = function(response) {
+//  var str = '';
+//}
 
-http.request(options, callback).end();
+//http.request(options, callback).end();
 
 //////////////////////////////
 // Protect /protected endpoint which is used in Getting Started with Bluemix Mobile Services tutorials
-//app.get('/protected', passport.authenticate('mca-backend-strategy', {session: false}), function(req, res){
+app.get('/protected', passport.authenticate('mca-backend-strategy', {session: false}), function(req, res){
 //	app.get('http://169.50.146.98/getFile', passport.authenticate('mca-backend-strategy', {session: false}), function(req, res){
-//	res.send("Hello, this is a protected resouce of the mobile backend application!");
+	res.send("Hello, this is a protected resouce of the mobile backend application!");
 });
 // ------------ Protecting backend APIs with Mobile Client Access end -----------------
 
