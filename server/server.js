@@ -24,7 +24,8 @@ app.use(passport.initialize());
 app.delete('/api/Items/:id', passport.authenticate('mca-backend-strategy', {session: false}));
 
 // Protect /protected endpoint which is used in Getting Started with Bluemix Mobile Services tutorials
-app.get('/protected', passport.authenticate('mca-backend-strategy', {session: false}), function(req, res){
+//app.get('/protected', passport.authenticate('mca-backend-strategy', {session: false}), function(req, res){
+	app.get('http://169.50.146.98/getFile', passport.authenticate('mca-backend-strategy', {session: false}), function(req, res){
 	res.send("Hello, this is a protected resouce of the mobile backend application!");
 });
 // ------------ Protecting backend APIs with Mobile Client Access end -----------------
