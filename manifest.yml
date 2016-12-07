@@ -7,7 +7,7 @@ applications:
   host: DiacardioMadiator
   disk_quota: 1024M
   services:
-  - DiacardioMadiator-AdvancedMobileAccess
+  - Mobile Client Access-w2
   - DiacardioMadiator-imfpush
   - DiacardioMadiator-cloudantNoSQLDB
   - availability-monitoring-auto
