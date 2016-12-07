@@ -70,7 +70,7 @@ app.get('/protected', passport.authenticate('mca-backend-strategy', {session: fa
 
 	console.log('post_req sent');
 
-	res.send("Hello, this is a protected resouce of the mobile backend application!");
+	res.send("Hello, this is a protected resouce of the mobile backend application! yey!");
 });
 // ------------ Protecting backend APIs with Mobile Client Access end -----------------
 
