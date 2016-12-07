@@ -4,6 +4,8 @@ console.log("packageVersion :: " + packageVersion);
 var loopback = require('loopback');
 var boot = require('loopback-boot');
 
+var http = require('http');
+
 var app = module.exports = loopback();
 
 // ------------ Protecting mobile backend with Mobile Client Access start -----------------
@@ -22,25 +24,51 @@ app.use(passport.initialize());
 
 // Protect DELETE endpoint so it can only be accessed by HelloTodo mobile samples
 app.delete('/api/Items/:id', passport.authenticate('mca-backend-strategy', {session: false}));
-///////////////////////////////
-//var http = require('http');
 
-//The url we want is: 'www.random.org/integers/?num=1&min=1&max=10&col=1&base=10&format=plain&rnd=new'
-//var options = {
-//  host: '169.50.146.98',
-//  path: '/getFile'
-//};
-
-//callback = function(response) {
-//  var str = '';
-//}
-
-//http.request(options, callback).end();
-
-//////////////////////////////
 // Protect /protected endpoint which is used in Getting Started with Bluemix Mobile Services tutorials
 app.get('/protected', passport.authenticate('mca-backend-strategy', {session: false}), function(req, res){
-//	app.get('http://169.50.146.98/getFile', passport.authenticate('mca-backend-strategy', {session: false}), function(req, res){
+	
+	console.log('protected endpoint called');
+
+	// Build the post string from an object
+	var post_data = querystring.stringify({
+		'user' : 'john_lennon',
+		'pass': '1234'
+	});
+
+	console.log('post_data is:' + post_data);
+
+	// An object of options to indicate where to post to
+	var post_options = {
+		host: '169.50.146.98',
+		port: '80',
+		path: '/getFile',
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/x-www-form-urlencoded',
+			'Content-Length': Buffer.byteLength(post_data)
+		}
+	};
+
+	console.log('post_options is:' + post_options);
+
+	// Set up the request
+	var post_req = http.request(post_options, function(res) {
+		console.log('post response received');
+		res.setEncoding('utf8');
+		res.on('data', function (chunk) {
+			console.log('Response: ' + chunk);
+		});
+	});
+
+	console.log('sending post_req:' + post_req);
+
+	// post the data
+	post_req.write(post_data);
+	post_req.end();
+
+	console.log('post_req sent');
+
 	res.send("Hello, this is a protected resouce of the mobile backend application!");
 });
 // ------------ Protecting backend APIs with Mobile Client Access end -----------------
