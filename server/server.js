@@ -5,6 +5,7 @@ var loopback = require('loopback');
 var boot = require('loopback-boot');
 
 var http = require('http');
+var querystring = require('querystring');
 
 var app = module.exports = loopback();
 
